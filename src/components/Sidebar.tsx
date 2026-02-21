@@ -172,6 +172,29 @@ export default function Sidebar() {
                             </Link>
                         );
                     })}
+
+                    {/* Admin Menu */}
+                    {user?.role === 'admin' && (
+                        <>
+                            <div style={{ margin: '20px 0 8px', padding: '0 10px', fontSize: '10px', letterSpacing: '2px', color: '#ff6b6b', textTransform: 'uppercase', opacity: 0.7 }}>
+                                Admin Only
+                            </div>
+                            <Link href="/admin" style={{ textDecoration: 'none', display: 'block', marginBottom: '2px' }}>
+                                <div style={{
+                                    display: 'flex', alignItems: 'center', gap: '10px',
+                                    padding: '9px 12px', borderRadius: '10px',
+                                    background: pathname === '/admin' ? 'rgba(255,107,107,0.12)' : 'transparent',
+                                    border: pathname === '/admin' ? '1px solid rgba(255,107,107,0.25)' : '1px solid transparent',
+                                    color: pathname === '/admin' ? '#ff6b6b' : 'rgba(255,107,107,0.7)',
+                                    fontSize: '13px', fontWeight: pathname === '/admin' ? 600 : 400,
+                                    transition: 'all 0.2s ease', cursor: 'pointer',
+                                }}>
+                                    <ShieldAlert size={15} />
+                                    <span>Dashboard Admin</span>
+                                </div>
+                            </Link>
+                        </>
+                    )}
                 </nav>
 
                 {/* User profile + logout */}
