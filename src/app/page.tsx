@@ -45,27 +45,27 @@ export default function LandingPage() {
         position: 'fixed', top: 0, width: '100%', zIndex: 100,
         background: 'rgba(10, 14, 26, 0.7)', backdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(212, 175, 55, 0.1)',
-        padding: '16px 24px'
+        padding: '12px 20px'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <MyRamadhanLogo size={40} />
-            <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '20px', fontWeight: 700, color: 'var(--gold)' }}>MyRamadhan</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <MyRamadhanLogo size={32} />
+            <span className="nav-logo-text" style={{ fontFamily: "'Playfair Display', serif", fontSize: '18px', fontWeight: 700, color: 'var(--gold)' }}>MyRamadhan</span>
           </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <Link href="/login" style={{ textDecoration: 'none', color: 'white', fontSize: '14px', fontWeight: 600, padding: '10px 20px' }}>Masuk</Link>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <Link href="/login" style={{ textDecoration: 'none', color: 'white', fontSize: '13px', fontWeight: 600, padding: '8px 12px' }}>Masuk</Link>
             <Link href="/register" style={{
               textDecoration: 'none', background: 'var(--gold)', color: '#0a0e1a',
-              fontSize: '14px', fontWeight: 700, padding: '10px 24px', borderRadius: '12px',
-              boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
-            }}>Daftar Sekarang</Link>
+              fontSize: '13px', fontWeight: 700, padding: '8px 16px', borderRadius: '10px',
+              boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)', whiteSpace: 'nowrap'
+            }}>Daftar</Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <header style={{
-        padding: '160px 24px 80px', textAlign: 'center',
+        padding: '120px 20px 60px', textAlign: 'center',
         background: 'radial-gradient(circle at 50% -20%, rgba(212, 175, 55, 0.15), transparent 70%)'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -112,13 +112,10 @@ export default function LandingPage() {
           <p style={{ color: 'rgba(255,255,255,0.5)' }}>Didesain khusus untuk kemudahan dan kenyamanan ibadah Anda.</p>
         </div>
 
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '24px', gridAutoRows: 'minmax(200px, auto)'
-        }}>
+        <div className="features-grid">
           {/* Big Card */}
-          <div className="glass-card" style={{
-            gridColumn: 'span 2', padding: '40px', display: 'flex', flexDirection: 'column',
+          <div className="glass-card bento-card-big" style={{
+            padding: '40px', display: 'flex', flexDirection: 'column',
             justifyContent: 'center', gap: '20px', background: 'linear-gradient(135deg, rgba(212,175,55,0.1), rgba(46,204,113,0.05))',
             border: '1px solid rgba(212, 175, 55, 0.2)'
           }}>
@@ -224,6 +221,33 @@ export default function LandingPage() {
                 }
                 @keyframes spin {
                     to { transform: rotate(360deg); }
+                }
+
+                .nav-logo-text {
+                    display: block;
+                }
+
+                .features-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 24px;
+                }
+
+                .bento-card-big {
+                    grid-column: span 2;
+                }
+
+                @media (max-width: 768px) {
+                    .nav-logo-text {
+                        display: none;
+                    }
+                    .features-grid {
+                        grid-template-columns: 1fr;
+                        gap: 16px;
+                    }
+                    .bento-card-big {
+                        grid-column: span 1;
+                    }
                 }
             `}</style>
     </div>

@@ -18,11 +18,13 @@ export async function GET(req: NextRequest) {
         id: item.id,
         userId: item.user_id,
         tanggal: item.tanggal,
-        subuh: item.subuh,
-        dzuhur: item.dzuhur,
-        ashar: item.ashar,
-        maghrib: item.maghrib,
-        isya: item.isya
+        subuh: item.subuh === 'true' || item.subuh === true,
+        dzuhur: item.dzuhur === 'true' || item.dzuhur === true,
+        ashar: item.ashar === 'true' || item.ashar === true,
+        maghrib: item.maghrib === 'true' || item.maghrib === true,
+        isya: item.isya === 'true' || item.isya === true,
+        tarawih: item.tarawih === 'true' || item.tarawih === true,
+        witir: item.witir === 'true' || item.witir === true
     }));
 
     return NextResponse.json(data);
@@ -30,7 +32,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     const body = await req.json();
-    const { userId, tanggal, subuh, dzuhur, ashar, maghrib, isya } = body;
+    const { userId, tanggal, subuh, dzuhur, ashar, maghrib, isya, tarawih, witir } = body;
     if (!userId || !tanggal) return NextResponse.json({ error: 'Data tidak lengkap' }, { status: 400 });
 
     const { data: item, error } = await supabaseAdmin
@@ -39,11 +41,13 @@ export async function POST(req: NextRequest) {
             {
                 user_id: userId,
                 tanggal,
-                subuh: subuh || 'belum',
-                dzuhur: dzuhur || 'belum',
-                ashar: ashar || 'belum',
-                maghrib: maghrib || 'belum',
-                isya: isya || 'belum',
+                subuh: subuh ? 'true' : 'belum',
+                dzuhur: dzuhur ? 'true' : 'belum',
+                ashar: ashar ? 'true' : 'belum',
+                maghrib: maghrib ? 'true' : 'belum',
+                isya: isya ? 'true' : 'belum',
+                tarawih: tarawih ? 'true' : 'belum',
+                witir: witir ? 'true' : 'belum',
             },
             { onConflict: 'user_id,tanggal' }
         )
@@ -56,11 +60,13 @@ export async function POST(req: NextRequest) {
         id: item.id,
         userId: item.user_id,
         tanggal: item.tanggal,
-        subuh: item.subuh,
-        dzuhur: item.dzuhur,
-        ashar: item.ashar,
-        maghrib: item.maghrib,
-        isya: item.isya
+        subuh: item.subuh === 'true' || item.subuh === true,
+        dzuhur: item.dzuhur === 'true' || item.dzuhur === true,
+        ashar: item.ashar === 'true' || item.ashar === true,
+        maghrib: item.maghrib === 'true' || item.maghrib === true,
+        isya: item.isya === 'true' || item.isya === true,
+        tarawih: item.tarawih === 'true' || item.tarawih === true,
+        witir: item.witir === 'true' || item.witir === true
     };
 
     return NextResponse.json(mapped);
