@@ -541,3 +541,40 @@ a {
     pointer-events: none;
   }
 }
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #D4AF37, #F0D060, #8B7520);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite;
+}

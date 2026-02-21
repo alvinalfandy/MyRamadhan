@@ -14,12 +14,17 @@ import {
     BookMarked,
     Scroll,
     Gem,
+    Settings,
+    LayoutDashboard, // Added
+    ClipboardCheck, // Added
+    CalendarCheck, // Added
+    ShieldAlert, // Added
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const MENU = [
-    { href: '/', label: 'Beranda', shortLabel: 'Beranda', icon: Home },
+    { href: '/dashboard', label: 'Beranda', shortLabel: 'Beranda', icon: Home },
     { href: '/quran', label: "Al-Qur'an", shortLabel: "Qur'an", icon: BookOpen },
     { href: '/catatan-puasa', label: 'Catatan Puasa', shortLabel: 'Puasa', icon: Moon },
     { href: '/catatan-sholat', label: 'Catatan Sholat', shortLabel: 'Sholat', icon: StickyNote },
@@ -33,12 +38,24 @@ const EXTRA_MENU = [
     { href: '/khatam', label: 'Target Khatam', icon: BookOpen },
     { href: '/statistik', label: 'Statistik', icon: BarChart2 },
     { href: '/masjid', label: 'Masjid Terdekat', icon: MapPin },
+    { href: '/settings', label: 'Pengaturan', icon: Settings },
 ];
-
 
 export default function Sidebar() {
     const pathname = usePathname();
     const { user, logout } = useAuth();
+
+    // Define MOBILE_LINKS here, inside the component to access `user`
+    const MOBILE_LINKS = [
+        { href: '/dashboard', label: 'Home', shortLabel: 'Beranda', icon: LayoutDashboard },
+        { href: '/catatan-puasa', label: 'Puasa', shortLabel: 'Puasa', icon: ClipboardCheck },
+        { href: '/catatan-sholat', label: 'Sholat', shortLabel: 'Sholat', icon: CalendarCheck },
+        // If admin, show admin link as 4th icon on mobile, otherwise show masjid
+        user?.role === 'admin'
+            ? { href: '/admin', label: 'Admin', shortLabel: 'Admin', icon: ShieldAlert }
+            : { href: '/masjid', label: 'Masjid', shortLabel: 'Masjid', icon: MapPin },
+        { href: '/statistik', label: 'Stats', shortLabel: 'Statistik', icon: BarChart2 },
+    ];
 
     return (
         <>

@@ -6,6 +6,7 @@ export interface UserSession {
     id: string;
     nama: string;
     username: string;
+    role: string;
 }
 
 interface AuthContextType {
@@ -13,6 +14,7 @@ interface AuthContextType {
     login: (username: string, password: string) => Promise<{ ok: boolean; error?: string }>;
     register: (nama: string, username: string, password: string) => Promise<{ ok: boolean; error?: string }>;
     logout: () => void;
+    setUser: (user: UserSession | null) => void;
     loading: boolean;
 }
 
@@ -21,6 +23,7 @@ const AuthContext = createContext<AuthContextType>({
     login: async () => ({ ok: false }),
     register: async () => ({ ok: false }),
     logout: () => { },
+    setUser: () => { },
     loading: true,
 });
 
@@ -47,7 +50,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
             const data = await res.json();
             if (!res.ok) return { ok: false, error: data.error || 'Login gagal' };
-            const session: UserSession = { id: data.id, nama: data.nama, username: data.username };
+            const session: UserSession = {
+                id: data.id,
+                nama: data.nama,
+                username: data.username,
+                role: data.role || 'user'
+            };
             setUser(session);
             localStorage.setItem('ramadan-user', JSON.stringify(session));
             return { ok: true };
@@ -65,7 +73,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
             const data = await res.json();
             if (!res.ok) return { ok: false, error: data.error || 'Registrasi gagal' };
-            const session: UserSession = { id: data.id, nama: data.nama, username: data.username };
+            const session: UserSession = {
+                id: data.id,
+                nama: data.nama,
+                username: data.username,
+                role: data.role || 'user'
+            };
             setUser(session);
             localStorage.setItem('ramadan-user', JSON.stringify(session));
             return { ok: true };
@@ -80,7 +93,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, register, logout, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

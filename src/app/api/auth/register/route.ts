@@ -28,15 +28,15 @@ export async function POST(req: NextRequest) {
 
         const { data: user, error } = await supabaseAdmin
             .from('users')
-            .insert({ nama, username: username.toLowerCase(), password: hashed })
-            .select('id, nama, username')
+            .insert({ nama, username: username.toLowerCase(), password: hashed, role: 'user' })
+            .select('id, nama, username, role')
             .single();
 
         if (error || !user) {
             return NextResponse.json({ error: 'Gagal membuat akun' }, { status: 500 });
         }
 
-        return NextResponse.json({ id: user.id, nama: user.nama, username: user.username });
+        return NextResponse.json({ id: user.id, nama: user.nama, username: user.username, role: user.role });
     } catch {
         return NextResponse.json({ error: 'Terjadi kesalahan server' }, { status: 500 });
     }

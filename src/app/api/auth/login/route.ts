@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
         const { data: user, error } = await supabaseAdmin
             .from('users')
-            .select('id, nama, username, password')
+            .select('id, nama, username, password, role')
             .eq('username', username.toLowerCase())
             .single();
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Password salah' }, { status: 401 });
         }
 
-        return NextResponse.json({ id: user.id, nama: user.nama, username: user.username });
+        return NextResponse.json({ id: user.id, nama: user.nama, username: user.username, role: user.role });
     } catch {
         return NextResponse.json({ error: 'Terjadi kesalahan server' }, { status: 500 });
     }
